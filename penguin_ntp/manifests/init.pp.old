@@ -1,0 +1,55 @@
+class penguin_ntp {
+
+case $facts['os']['family'] {
+ 'RedHat': { $ntpfile='/etc/ntp.conf'
+	     $pkgnam='ntp'  
+	     $ntpsvc='ntpd' 
+	     $cdmount='absent' }
+'Solaris': { $ntpfile='/etc/inet/ntp.conf'
+             $pkgnam=[ 'SUNWntpu', 'SUNWntpr' ]
+	     $ntpsvc='ntp' 
+	     $repos='/repos/solaris10dvd/Product' 
+	     $cdmount='mounted' }
+  default: { fail('Unsupported OS major release')}
+}
+
+mount { "/repos":
+ device  => "emperor:/var/ftp/pub",
+ fstype  => "nfs",
+ ensure  => $cdmount,
+ options => "defaults",
+ atboot  => false,
+ require => File["/repos"],
+}
+
+Package { ensure => 'installed' }
+
+package { $pkgnam: 
+ source => $repos,
+ require => Mount["/repos"],
+ adminfile => "/repos/solaris10/ntp/admin",
+}
+
+service { $ntpsvc:
+ ensure => running,
+ enable => true,
+}
+
+file { $ntpfile:
+  ensure  => present,
+  owner   => 'root',
+  group   => 'root',
+  mode    => '0644',
+  source  => 'puppet:///modules/penguin_ntp/ntp.conf',
+  require => Package[$pkgnam],
+  notify => Service[$ntpsvc],
+}
+
+file { "/repos":
+ ensure => directory,
+ owner => 'root',
+ group => 'root',
+ mode => '0755', 
+}
+
+}

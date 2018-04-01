@@ -1,0 +1,7 @@
+#
+# *** Puppet managed configuration file ***
+#
+jowel   emperor:/home/&
+jenny   emperor:/home/&
+foscam  emperor:/home/&
+ladmin  emperor:/home/&

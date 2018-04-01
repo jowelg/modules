@@ -1,0 +1,2 @@
+The local variable set was : <%= $localsetting %>
+

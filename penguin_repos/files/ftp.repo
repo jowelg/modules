@@ -1,0 +1,22 @@
+#
+# *** Puppet managed configuration file ***
+#
+
+[ftp74update]
+name=ftp74update
+baseurl=ftp://emperor.penguin.myhomenet/pub/rhel74update
+enabled=0
+gpgcheck=0
+
+[ftp72]
+name=ftp72
+baseurl=ftp://emperor.penguin.myhomenet/pub/rhel72
+enabled=0
+gpgcheck=0
+
+[utils]
+name=utils
+baseurl=ftp://emperor.penguin.myhomenet/pub/utils
+enabled=0
+gpgcheck=0
+

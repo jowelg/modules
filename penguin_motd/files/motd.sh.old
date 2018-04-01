@@ -1,0 +1,4 @@
+#
+# *** Puppet managed configuration file
+#
+/myHome/Jowel/Lessons/Vocabulary/vocabulary2.sh | /usr/bin/cowsay -n
